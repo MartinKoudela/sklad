@@ -5,28 +5,35 @@
 
 struct Decks {
     char name[100];
+    char brand[50];
     double price;
+    double size;
+    char material[50];
     int quantity;
 };
 
 struct Decks decks[] = {
-    {"Jart", 106.5, 7},
-    {"Charge", 57.4, 1},
-    {"Polar Skate", 82, 0},
-    {"Chocolate", 115.8, 2},
-    {"Charge", 55.9, 4},
-    {"Baker", 90.65, 5},
+    {"Night Rider", "Jart", 106.50, 8.0, "Maple", 7},
+    {"Venom", "Charge", 57.40, 8.25, "Bamboo", 10},
+    {"Frostbite", "Polar Skate", 82.00, 8.5, "Maple", 0},
+    {"Dark Matter", "Chocolate", 115.80, 8.0, "Maple", 18},
+    {"Shadow", "Charge", 55.90, 8.0, "Bamboo", 0},
+    {"Inferno", "Baker", 90.65, 8.25, "Epoxy Maple", 5},
 };
 
 int show() {
-    printf("\n      Name  Price  Quantity\n");
+    printf("\n%-4s %-14s %-12s %8s %6s %-12s %s\n",
+              "#", "Name", "Brand", "Price", "Size", "Material", "Quantity");
+    printf("--------------------------------------------------------------------------- \n");
     const int count = sizeof(decks) / sizeof(decks[0]);
     for (int i = 0; i < count; i++) {
         if (decks[i].quantity > 0) {
-            printf("%d. - %s - %.2f€ - ", i + 1, decks[i].name, decks[i].price);
+            printf("%-4d %-14s %-12s %7.2f€ %5.2f %-12s", i + 1, decks[i].name, decks[i].brand, decks[i].price,
+                   decks[i].size, decks[i].material);
             (decks[i].quantity == 1) ? printf("%d deck\n", decks[i].quantity) : printf("%d decks\n", decks[i].quantity);
         } else {
-            printf("%d. - %s - %.2f€ - No decks on stock \n", i + 1, decks[i].name, decks[i].price);
+            printf("%-4d %-14s %-12s %7.2f€ %5.2f %-12sNo decks in stock \n", i + 1, decks[i].name, decks[i].brand,
+                   decks[i].price, decks[i].size, decks[i].material);
         }
     }
     return 0;
@@ -58,6 +65,7 @@ int searchDeck() {
 }
 
 int showDetails() {
+    searchDeck();
     return 0;
 }
 
