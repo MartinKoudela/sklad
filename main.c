@@ -33,58 +33,27 @@ int show() {
 }
 
 
-int searchName() {
-    char name[100];
+int searchDeck() {
+    char input[100];
 
-    printf("\nSearch name: ");
-    scanf("%s", name);
-    const int count = sizeof(decks) / sizeof(decks[0]);
-    for (int i = 0; i < count; i++) {
-        if (strcasecmp(decks[i].name, name) == 0) {
-            printf("Deck found: %s\n", decks[i].name);
-            return 0;
-        }
-    }
-    printf("Not Found\n");
-    return 0;
-}
+    printf("\nSearch deck: ");
+    scanf("%s", input);
 
-int searchPrice() {
     double price;
+    int isPrice = sscanf(input, "%lf", &price);
 
-    printf("\nSearch price: ");
-    scanf("%lf", &price);
     const int count = sizeof(decks) / sizeof(decks[0]);
+
     for (int i = 0; i < count; i++) {
-        if (fabs(decks[i].price - price) < 0.01) {
-            printf("Deck found: %s\n", decks[i].name);
+        if (isPrice == 1 && fabs(decks[i].price - price) < 0.01) {
+            printf("Found: %s - %.2f€\n", decks[i].name, decks[i].price);
+            return 0;
+        } else if (isPrice != 1 && strcasecmp(decks[i].name, input) == 0) {
+            printf("Found: %s - %.2f€\n", decks[i].name, decks[i].price);
             return 0;
         }
     }
     printf("Not Found\n");
-    return 0;
-}
-
-int searchType() {
-    int searchType;
-    printf("\n1. Name ");
-    printf("\n2. Price ");
-    printf("\n");
-    printf("\nSearch by: ");
-    scanf("%d", &searchType);
-
-    switch (searchType) {
-        case 1:
-            searchName();
-            break;
-        case 2:
-            searchPrice();
-            break;
-        default:
-            printf("Invalid action");
-            break;
-    }
-
     return 0;
 }
 
@@ -131,7 +100,7 @@ int main(void) {
                 show();
                 break;
             case 2:
-                searchType();
+                searchDeck();
                 break;
             case 3:
                 showDetails();
