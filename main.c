@@ -19,7 +19,7 @@ struct Decks decks[] = {
 
 int show() {
     printf("\n      Name  Price  Quantity\n");
-    int count = sizeof(decks) / sizeof(decks[0]);
+    const int count = sizeof(decks) / sizeof(decks[0]);
     for (int i = 0; i < count; i++) {
         if (decks[i].quantity > 0) {
             printf("%d. - %s - %.2f€ - ", i + 1, decks[i].name, decks[i].price);
@@ -37,20 +37,19 @@ int searchName() {
 
     printf("\nSearch name: ");
     scanf("%s", name);
-    int count = sizeof(decks) / sizeof(decks[0]);
+    const int count = sizeof(decks) / sizeof(decks[0]);
     for (int i = 0; i < count; i++) {
         if (strcmp(decks[i].name, name) == 0) {
-            printf("\nFound: %s deck", decks[i].name);
-            break;
-        } else {
-            printf("\nNot Found");
-            break;
+            printf("Found: %s deck\n", decks[i].name);
+            return 0;
         }
     }
+    printf("\nNot Found");
     return 0;
 }
 
 int searchPrice() {
+
     return 0;
 }
 
