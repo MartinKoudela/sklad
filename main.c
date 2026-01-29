@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 
 struct Decks {
@@ -18,7 +19,8 @@ struct Decks decks[] = {
 
 int show() {
     printf("\n      Name  Price  Quantity\n");
-    for (int i = 0; i < 6; i++) {
+    int count = sizeof(decks) / sizeof(decks[0]);
+    for (int i = 0; i < count; i++) {
         if (decks[i].quantity > 0) {
             printf("%d. - %s - %.2f€ - ", i + 1, decks[i].name, decks[i].price);
             (decks[i].quantity == 1) ? printf("%d deck\n", decks[i].quantity) : printf("%d decks\n", decks[i].quantity);
@@ -29,7 +31,22 @@ int show() {
     return 0;
 }
 
+
 int searchName() {
+    char name[100];
+
+    printf("\nSearch name: ");
+    scanf("%s", name);
+    int count = sizeof(decks) / sizeof(decks[0]);
+    for (int i = 0; i < count; i++) {
+        if (strcmp(decks[i].name, name) == 0) {
+            printf("\nFound: %s deck", decks[i].name);
+            break;
+        } else {
+            printf("\nNot Found");
+            break;
+        }
+    }
     return 0;
 }
 
@@ -37,11 +54,38 @@ int searchPrice() {
     return 0;
 }
 
+int searchType() {
+    int searchType;
+    printf("\n1. Name ");
+    printf("\n2. Price ");
+    printf("\n");
+    printf("\nSearch by: ");
+    scanf("%d", &searchType);
+
+    switch (searchType) {
+        case 1:
+            searchName();
+            break;
+        case 2:
+            searchPrice();
+            break;
+        default:
+            printf("Invalid action");
+            break;
+    }
+
+    return 0;
+}
+
 int showDetails() {
     return 0;
 }
 
-int destroyDecks() {
+int addDeck() {
+    return 0;
+}
+
+int destroyDeck() {
     return 0;
 }
 
@@ -52,13 +96,13 @@ int updateDeck() {
 int main(void) {
     int choice;
 
-    printf("####################################");
+    printf(" ####################################");
     printf("\n Welcome to DeckShops storage menu");
-    printf("\n ####################################");
+    printf("\n####################################");
     printf("\n 1. Show all decks");
-    printf("\n 2. Search deck by name");
-    printf("\n 3. Search deck by price");
-    printf("\n 4. Show details of deck");
+    printf("\n 2. Search deck");
+    printf("\n 3. Show details of deck");
+    printf("\n 4. Add new deck ");
     printf("\n 5. Delete a deck");
     printf("\n 6. Update decks info");
     printf("\n");
@@ -71,16 +115,16 @@ int main(void) {
             show();
             break;
         case 2:
-            searchName();
+            searchType();
             break;
         case 3:
-            searchPrice();
-            break;
-        case 4:
             showDetails();
             break;
+        case 4:
+            addDeck();
+            break;
         case 5:
-            destroyDecks();
+            destroyDeck();
             break;
         case 6:
             updateDeck();
