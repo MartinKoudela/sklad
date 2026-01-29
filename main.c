@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <tgmath.h>
 
 
 struct Decks {
@@ -39,16 +40,28 @@ int searchName() {
     scanf("%s", name);
     const int count = sizeof(decks) / sizeof(decks[0]);
     for (int i = 0; i < count; i++) {
-        if (strcmp(decks[i].name, name) == 0) {
+        if (strcasecmp(decks[i].name, name) == 0) {
             printf("Deck found: %s\n", decks[i].name);
             return 0;
         }
     }
-    printf("\nNot Found");
+    printf("Not Found\n");
     return 0;
 }
 
 int searchPrice() {
+    double price;
+
+    printf("\nSearch price: ");
+    scanf("%lf", &price);
+    const int count = sizeof(decks) / sizeof(decks[0]);
+    for (int i = 0; i < count; i++) {
+        if (fabs(decks[i].price - price) < 0.01) {
+            printf("Deck found: %s\n", decks[i].name);
+            return 0;
+        }
+    }
+    printf("Not Found\n");
     return 0;
 }
 
