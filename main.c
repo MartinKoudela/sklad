@@ -40,7 +40,7 @@ int searchName() {
     const int count = sizeof(decks) / sizeof(decks[0]);
     for (int i = 0; i < count; i++) {
         if (strcmp(decks[i].name, name) == 0) {
-            printf("Found: %s deck\n", decks[i].name);
+            printf("Deck found: %s\n", decks[i].name);
             return 0;
         }
     }
@@ -49,7 +49,6 @@ int searchName() {
 }
 
 int searchPrice() {
-
     return 0;
 }
 
@@ -95,41 +94,47 @@ int updateDeck() {
 int main(void) {
     int choice;
 
-    printf(" ####################################");
-    printf("\n Welcome to DeckShops storage menu");
-    printf("\n####################################");
-    printf("\n 1. Show all decks");
-    printf("\n 2. Search deck");
-    printf("\n 3. Show details of deck");
-    printf("\n 4. Add new deck ");
-    printf("\n 5. Delete a deck");
-    printf("\n 6. Update decks info");
-    printf("\n");
+    while (1) {
+        printf(" ####################################");
+        printf("\n Welcome to DeckShops storage menu");
+        printf("\n####################################");
+        printf("\n 1. Show all decks");
+        printf("\n 2. Search deck");
+        printf("\n 3. Show details of deck");
+        printf("\n 4. Add new deck ");
+        printf("\n 5. Delete a deck");
+        printf("\n 6. Update decks info");
+        printf("\n 0. Exit");
+        printf("\n");
 
-    printf("\nChoose an action: ");
-    scanf("%d", &choice);
+        printf("\nChoose an action: ");
+        scanf("%d", &choice);
 
-    switch (choice) {
-        case 1:
-            show();
-            break;
-        case 2:
-            searchType();
-            break;
-        case 3:
-            showDetails();
-            break;
-        case 4:
-            addDeck();
-            break;
-        case 5:
-            destroyDeck();
-            break;
-        case 6:
-            updateDeck();
-            break;
-        default:
-            printf("Invalid action");
+        switch (choice) {
+            case 0:
+                printf("Bye");
+                return 0;
+            case 1:
+                show();
+                break;
+            case 2:
+                searchType();
+                break;
+            case 3:
+                showDetails();
+                break;
+            case 4:
+                addDeck();
+                break;
+            case 5:
+                destroyDeck();
+                break;
+            case 6:
+                updateDeck();
+                break;
+            default:
+                printf("Invalid action");
+        }
     }
     return 0;
 }
