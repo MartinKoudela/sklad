@@ -23,7 +23,7 @@ struct Decks decks[] = {
 
 int show() {
     printf("\n%-4s %-14s %-12s %8s %6s %-12s %s\n",
-              "#", "Name", "Brand", "Price", "Size", "Material", "Quantity");
+           "#", "Name", "Brand", "Price", "Size", "Material", "Quantity");
     printf("--------------------------------------------------------------------------- \n");
     const int count = sizeof(decks) / sizeof(decks[0]);
     for (int i = 0; i < count; i++) {
@@ -40,8 +40,12 @@ int show() {
 }
 
 
+// TODO: fix return printf message for searchDeck
+// TODO: next functions
+
 int searchDeck() {
     char input[100];
+    int found = 0;
 
     printf("\nSearch deck: ");
     scanf("%s", input);
@@ -53,14 +57,14 @@ int searchDeck() {
 
     for (int i = 0; i < count; i++) {
         if (isPrice == 1 && fabs(decks[i].price - price) < 0.01) {
-            printf("Found: %s - %.2f€\n", decks[i].name, decks[i].price);
-            return 0;
-        } else if (isPrice != 1 && strcasecmp(decks[i].name, input) == 0) {
-            printf("Found: %s - %.2f€\n", decks[i].name, decks[i].price);
-            return 0;
+            printf("Found: %s - %s - %.2f€ - %.2f - %s\n", decks[i].name, decks[i].brand, decks[i].price, decks[i].size, decks[i].material);
+            found = 1;
+        } else if (isPrice != 1 && (strcasecmp(decks[i].brand, input) == 0 || strcasecmp(decks[i].name, input) == 0 || strcasecmp(decks[i].material, input) == 0)) {
+            printf("Found: %s - %s - %.2f€ - %.2f - %s\n ", decks[i].name, decks[i].brand, decks[i].price, decks[i].size, decks[i].material);
+            found = 1;
         }
     }
-    printf("Not Found\n");
+    (!found) ? printf("Not any decks found\n") : printf("\n");
     return 0;
 }
 
@@ -85,7 +89,7 @@ int main(void) {
     int choice;
 
     while (1) {
-        printf(" ####################################");
+        printf("\n####################################");
         printf("\n Welcome to DeckShops storage menu");
         printf("\n####################################");
         printf("\n 1. Show all decks");
