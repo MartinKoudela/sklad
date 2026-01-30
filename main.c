@@ -40,7 +40,6 @@ int show() {
 }
 
 
-// TODO: fix return printf message for searchDeck
 // TODO: next functions
 
 int searchDeck() {
@@ -48,8 +47,9 @@ int searchDeck() {
     int found = 0;
 
     printf("\nSearch deck: ");
-    scanf("%s", input);
-
+    getchar();
+    fgets(input, sizeof(input), stdin);
+    input[strcspn(input, "\n")] = '\0';
     double price;
     int isPrice = sscanf(input, "%lf", &price);
 
@@ -57,7 +57,7 @@ int searchDeck() {
 
     for (int i = 0; i < count; i++) {
         if (isPrice == 1 && fabs(decks[i].price - price) < 0.01) {
-            printf("Found: %s - %s - %.2f€ - %.2f - %s\n", decks[i].name, decks[i].brand, decks[i].price, decks[i].size, decks[i].material);
+            printf("Found: %s - %s - %.2f€ - %.2f - %s\n",decks[i].name, decks[i].brand, decks[i].price, decks[i].size, decks[i].material);
             found = 1;
         } else if (isPrice != 1 && (strcasecmp(decks[i].brand, input) == 0 || strcasecmp(decks[i].name, input) == 0 || strcasecmp(decks[i].material, input) == 0)) {
             printf("Found: %s - %s - %.2f€ - %.2f - %s\n ", decks[i].name, decks[i].brand, decks[i].price, decks[i].size, decks[i].material);
