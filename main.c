@@ -57,10 +57,10 @@ int searchDeck() {
 
     for (int i = 0; i < count; i++) {
         if (isPrice == 1 && fabs(decks[i].price - price) < 0.01) {
-            printf("Found: %s - %s - %.2f€ - %.2f - %s\n",decks[i].name, decks[i].brand, decks[i].price, decks[i].size, decks[i].material);
+            printf("Found: %s - %s\n",decks[i].name, decks[i].brand);
             found = 1;
         } else if (isPrice != 1 && (strcasecmp(decks[i].brand, input) == 0 || strcasecmp(decks[i].name, input) == 0 || strcasecmp(decks[i].material, input) == 0)) {
-            printf("Found: %s - %s - %.2f€ - %.2f - %s\n ", decks[i].name, decks[i].brand, decks[i].price, decks[i].size, decks[i].material);
+            printf("Found: %s - %s\n", decks[i].name, decks[i].brand);
             found = 1;
         }
     }
@@ -69,7 +69,28 @@ int searchDeck() {
 }
 
 int showDetails() {
-    searchDeck();
+    char input[100];
+    int found = 0;
+
+    printf("\nSearch deck: ");
+    getchar();
+    fgets(input, sizeof(input), stdin);
+    input[strcspn(input, "\n")] = '\0';
+    double price;
+    int isPrice = sscanf(input, "%lf", &price);
+
+    const int count = sizeof(decks) / sizeof(decks[0]);
+
+    for (int i = 0; i < count; i++) {
+        if (isPrice == 1 && fabs(decks[i].price - price) < 0.01) {
+            printf("Found: %s - %s - %.2f€ - %.2f - %s\n",decks[i].name, decks[i].brand, decks[i].price, decks[i].size, decks[i].material);
+            found = 1;
+        } else if (isPrice != 1 && (strcasecmp(decks[i].brand, input) == 0 || strcasecmp(decks[i].name, input) == 0 || strcasecmp(decks[i].material, input) == 0)) {
+            printf("Found: %s - %s - %.2f€ - %.2f - %s\n", decks[i].name, decks[i].brand, decks[i].price);
+            found = 1;
+        }
+    }
+    (!found) ? printf("Not any decks found\n") : printf("\n");
     return 0;
 }
 
@@ -94,7 +115,7 @@ int main(void) {
         printf("\n####################################");
         printf("\n 1. Show all decks");
         printf("\n 2. Search deck");
-        printf("\n 3. Show details of deck");
+        printf("\n 3. Search deck with details");
         printf("\n 4. Add new deck ");
         printf("\n 5. Delete a deck");
         printf("\n 6. Update decks info");
