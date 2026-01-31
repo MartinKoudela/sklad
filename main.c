@@ -21,12 +21,14 @@ struct Decks decks[] = {
     {"Inferno", "Baker", 90.65, 8.25, "Epoxy Maple", 5},
 };
 
+int deckCount = sizeof(decks) / sizeof(decks[0]);
+
+
 int show() {
     printf("\n%-4s %-14s %-12s %8s %6s %-12s %s\n",
            "#", "Name", "Brand", "Price", "Size", "Material", "Quantity");
     printf("--------------------------------------------------------------------------- \n");
-    const int count = sizeof(decks) / sizeof(decks[0]);
-    for (int i = 0; i < count; i++) {
+    for (int i = 0; i < deckCount; i++) {
         if (decks[i].quantity > 0) {
             printf("%-4d %-14s %-12s %7.2f€ %5.2f %-12s", i + 1, decks[i].name, decks[i].brand, decks[i].price,
                    decks[i].size, decks[i].material);
@@ -53,13 +55,13 @@ int searchDeck() {
     double price;
     int isPrice = sscanf(input, "%lf", &price);
 
-    const int count = sizeof(decks) / sizeof(decks[0]);
 
-    for (int i = 0; i < count; i++) {
+    for (int i = 0; i < deckCount; i++) {
         if (isPrice == 1 && fabs(decks[i].price - price) < 0.01) {
-            printf("Found: %s - %s\n",decks[i].name, decks[i].brand);
+            printf("Found: %s - %s\n", decks[i].name, decks[i].brand);
             found = 1;
-        } else if (isPrice != 1 && (strcasecmp(decks[i].brand, input) == 0 || strcasecmp(decks[i].name, input) == 0 || strcasecmp(decks[i].material, input) == 0)) {
+        } else if (isPrice != 1 && (strcasecmp(decks[i].brand, input) == 0 || strcasecmp(decks[i].name, input) == 0 ||
+                                    strcasecmp(decks[i].material, input) == 0)) {
             printf("Found: %s - %s\n", decks[i].name, decks[i].brand);
             found = 1;
         }
@@ -79,14 +81,15 @@ int showDetails() {
     double price;
     int isPrice = sscanf(input, "%lf", &price);
 
-    const int count = sizeof(decks) / sizeof(decks[0]);
-
-    for (int i = 0; i < count; i++) {
+    for (int i = 0; i < deckCount; i++) {
         if (isPrice == 1 && fabs(decks[i].price - price) < 0.01) {
-            printf("Found: %s - %s - %.2f€ - %.2f - %s\n",decks[i].name, decks[i].brand, decks[i].price, decks[i].size, decks[i].material);
+            printf("Found: %s - %s - %.2f€ - %.2f - %s\n", decks[i].name, decks[i].brand, decks[i].price, decks[i].size,
+                   decks[i].material);
             found = 1;
-        } else if (isPrice != 1 && (strcasecmp(decks[i].brand, input) == 0 || strcasecmp(decks[i].name, input) == 0 || strcasecmp(decks[i].material, input) == 0)) {
-            printf("Found: %s - %s - %.2f€ - %.2f - %s\n", decks[i].name, decks[i].brand, decks[i].price);
+        } else if (isPrice != 1 && (strcasecmp(decks[i].brand, input) == 0 || strcasecmp(decks[i].name, input) == 0 ||
+                                    strcasecmp(decks[i].material, input) == 0)) {
+            printf("Found: %s - %s - %.2f€ - %.2f - %s\n", decks[i].name, decks[i].brand, decks[i].price, decks[i].size,
+                   decks[i].material);
             found = 1;
         }
     }
@@ -99,6 +102,36 @@ int addDeck() {
 }
 
 int destroyDeck() {
+    char input[100];
+    int found = 0;
+
+    printf("\nSearch the deck you want to delete: ");
+    getchar();
+    fgets(input, sizeof(input), stdin);
+    input[strcspn(input, "\n")] = '\0';
+    double price;
+    int isPrice = sscanf(input, "%lf", &price);
+
+
+    for (int i = 0; i < deckCount; i++) {
+        int match = 0;
+        if (isPrice == 1 && fabs(decks[i].price - price) < 0.01) {
+            match = 1;
+        } else if (isPrice != 1 && (strcasecmp(decks[i].brand, input) == 0 || strcasecmp(decks[i].name, input) == 0 ||
+                                    strcasecmp(decks[i].material, input) == 0)) {
+            match = 1;
+        }
+        if (match) {
+            printf("\nDeleted: %s - %s\n", decks[i].name, decks[i].brand);
+            for (int j = i; j < deckCount - 1; j++) {
+                decks[j] = decks[j + 1];
+            }
+            deckCount--;
+            i--;
+            found = 1;
+        }
+    }
+    (!found) ? printf("Not any decks found\n") : printf("\n");
     return 0;
 }
 
