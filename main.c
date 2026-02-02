@@ -96,8 +96,32 @@ int showDetails() {
     (!found) ? printf("Not any decks found\n") : printf("\n");
     return 0;
 }
-
+// TODO: opravit
 int addDeck() {
+
+    printf("\nEnter new decks information ");
+    printf("\n--------------------------- ");
+
+    printf("\nEnter decks name:");
+    scanf(" %[^\n]", decks[deckCount].name);
+
+    printf("\nEnter decks brand:");
+    scanf(" %[^\n]", decks[deckCount].brand);
+
+    printf("\nEnter decks price:");
+    scanf("%lf", &decks[deckCount].price);
+
+    printf("\nEnter decks size (8.5, 8.0 format):");
+    scanf("%lf", &decks[deckCount].size);
+
+    printf("\nEnter decks material:");
+    scanf(" %[^\n]", decks[deckCount].material);
+
+    printf("\nEnter decks quantity:");
+    scanf("%d", &decks[deckCount].quantity);
+
+    deckCount++;
+    printf("\nDeck added successfully\n");
     return 0;
 }
 
