@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <tgmath.h>
 
@@ -47,7 +48,6 @@ int searchDeck() {
     int found = 0;
 
     printf("\nSearch deck: ");
-    getchar();
     fgets(input, sizeof(input), stdin);
     input[strcspn(input, "\n")] = '\0';
     double price;
@@ -73,7 +73,6 @@ int showDetails() {
     int found = 0;
 
     printf("\nSearch deck: ");
-    getchar();
     fgets(input, sizeof(input), stdin);
     input[strcspn(input, "\n")] = '\0';
     double price;
@@ -128,7 +127,6 @@ int destroyDeck() {
     int found = 0;
 
     printf("\nSearch the deck you want to delete: ");
-    getchar();
     fgets(input, sizeof(input), stdin);
     input[strcspn(input, "\n")] = '\0';
     double price;
@@ -171,7 +169,9 @@ int updateForm(int index) {
     printf("\n");
 
     printf("\nChoose an action: ");
-    scanf("%d", &choice);
+    char buf[100];
+    fgets(buf, sizeof(buf), stdin);
+    choice = atoi(buf);
 
 
     switch (choice) {
@@ -251,7 +251,9 @@ int main(void) {
         printf("\n");
 
         printf("\nChoose an action: ");
-        scanf("%d", &choice);
+        char buf[100];
+        fgets(buf, sizeof(buf), stdin);
+        choice = atoi(buf);
 
         switch (choice) {
             case 0:
