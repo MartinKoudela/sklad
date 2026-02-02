@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include <tgmath.h>
 
@@ -48,6 +47,7 @@ int searchDeck() {
     int found = 0;
 
     printf("\nSearch deck: ");
+    getchar();
     fgets(input, sizeof(input), stdin);
     input[strcspn(input, "\n")] = '\0';
     double price;
@@ -56,11 +56,11 @@ int searchDeck() {
 
     for (int i = 0; i < deckCount; i++) {
         if (isPrice == 1 && fabs(decks[i].price - price) < 0.01) {
-            printf("Found: %s - %s\n", decks[i].name, decks[i].brand);
+            printf("\nFound: %s - %s\n", decks[i].name, decks[i].brand);
             found = 1;
         } else if (isPrice != 1 && (strcasecmp(decks[i].brand, input) == 0 || strcasecmp(decks[i].name, input) == 0 ||
                                     strcasecmp(decks[i].material, input) == 0)) {
-            printf("Found: %s - %s\n", decks[i].name, decks[i].brand);
+            printf("\nFound: %s - %s\n", decks[i].name, decks[i].brand);
             found = 1;
         }
     }
@@ -73,6 +73,7 @@ int showDetails() {
     int found = 0;
 
     printf("\nSearch deck: ");
+    getchar();
     fgets(input, sizeof(input), stdin);
     input[strcspn(input, "\n")] = '\0';
     double price;
@@ -127,6 +128,7 @@ int destroyDeck() {
     int found = 0;
 
     printf("\nSearch the deck you want to delete: ");
+    getchar();
     fgets(input, sizeof(input), stdin);
     input[strcspn(input, "\n")] = '\0';
     double price;
@@ -169,9 +171,7 @@ int updateForm(int index) {
     printf("\n");
 
     printf("\nChoose an action: ");
-    char buf[100];
-    fgets(buf, sizeof(buf), stdin);
-    choice = atoi(buf);
+    scanf("%d", &choice);
 
 
     switch (choice) {
@@ -251,9 +251,7 @@ int main(void) {
         printf("\n");
 
         printf("\nChoose an action: ");
-        char buf[100];
-        fgets(buf, sizeof(buf), stdin);
-        choice = atoi(buf);
+        scanf("%d", &choice);
 
         switch (choice) {
             case 0:
