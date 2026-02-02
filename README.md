@@ -9,7 +9,7 @@ Konzolový systém v C pro správu skladu skateboardových desek.
 - **Detailní vyhledávání** — hledání s výpisem všech parametrů desky
 - **Přidání desky** — přidání nové desky do skladu
 - **Smazání desky** — vyhledání a odstranění desky ze skladu
-- **Úprava desky** — změna názvu, značky, ceny, velikosti nebo materiálu
+- **Úprava desky** — změna názvu, značky, ceny, velikosti, materiálu nebo počtu desek na skladu
 
 
 ## Ovládání
