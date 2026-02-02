@@ -12,7 +12,7 @@ struct Decks {
     int quantity;
 };
 
-struct Decks decks[] = {
+struct Decks decks[100] = {
     {"Night Rider", "Jart", 106.50, 8.0, "Maple", 7},
     {"Venom", "Charge", 57.40, 8.25, "Bamboo", 10},
     {"Frostbite", "Polar Skate", 82.00, 8.5, "Maple", 0},
@@ -21,7 +21,7 @@ struct Decks decks[] = {
     {"Inferno", "Baker", 90.65, 8.25, "Epoxy Maple", 5},
 };
 
-int deckCount = sizeof(decks) / sizeof(decks[0]);
+int deckCount = 6;
 
 
 int show() {
