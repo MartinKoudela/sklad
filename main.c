@@ -42,8 +42,6 @@ int show() {
 }
 
 
-// TODO: next functions
-
 int searchDeck() {
     char input[100];
     int found = 0;
@@ -96,9 +94,9 @@ int showDetails() {
     (!found) ? printf("Not any decks found\n") : printf("\n");
     return 0;
 }
+
 // TODO: opravit
 int addDeck() {
-
     printf("\nEnter new decks information ");
     printf("\n--------------------------- ");
 
@@ -159,7 +157,80 @@ int destroyDeck() {
     return 0;
 }
 
+int updateForm(int index) {
+    int choice;
+    printf("\n--------------------------------------");
+    printf("\n Update decks details");
+    printf("\n--------------------------------------");
+    printf("\n 1. Update name");
+    printf("\n 2. Update brand");
+    printf("\n 3. Update price");
+    printf("\n 4. Update size");
+    printf("\n 5. Update material");
+    printf("\n 0. Exit");
+    printf("\n");
+
+    printf("\nChoose an action: ");
+    scanf("%d", &choice);
+
+
+    switch (choice) {
+        case 0:
+            printf("Bye");
+            return 0;
+        case 1:
+            printf("Set a new name:");
+            scanf(" %[^\n]", decks[index].name);
+            break;
+        case 2:
+            printf("Set a new brand:");
+            scanf(" %[^\n]", decks[index].brand);
+            break;
+        case 3:
+            printf("Set a new price:");
+            scanf("%lf", &decks[index].price);
+            break;
+        case 4:
+            printf("Set a new size:");
+            scanf("%lf", &decks[index].size);
+            break;
+        case 5:
+            printf("Set a new material:");
+            scanf(" %[^\n]", decks[index].material);
+            break;
+        default:
+            printf("Invalid action");
+    }
+}
+
+
 int updateDeck() {
+    char input[100];
+    int found = 0;
+
+    printf("\nSearch deck: ");
+    getchar();
+    fgets(input, sizeof(input), stdin);
+    input[strcspn(input, "\n")] = '\0';
+    double price;
+    int isPrice = sscanf(input, "%lf", &price);
+
+
+    for (int i = 0; i < deckCount; i++) {
+        if (isPrice == 1 && fabs(decks[i].price - price) < 0.01) {
+            printf("Found: %s - %s - %.2f€ - %.2f - %s\n", decks[i].name, decks[i].brand, decks[i].price, decks[i].size,
+                   decks[i].material);
+            found = 1;
+            updateForm(i);
+        } else if (isPrice != 1 && (strcasecmp(decks[i].brand, input) == 0 || strcasecmp(decks[i].name, input) == 0 ||
+                                    strcasecmp(decks[i].material, input) == 0)) {
+            printf("Found: %s - %s - %.2f€ - %.2f - %s\n", decks[i].name, decks[i].brand, decks[i].price, decks[i].size,
+                   decks[i].material);
+            found = 1;
+            updateForm(i);
+        }
+    }
+    (!found) ? printf("Not any decks found\n") : printf("\n");
     return 0;
 }
 
@@ -167,9 +238,9 @@ int main(void) {
     int choice;
 
     while (1) {
-        printf("\n####################################");
+        printf("\n--------------------------------------");
         printf("\n Welcome to DeckShops storage menu");
-        printf("\n####################################");
+        printf("\n--------------------------------------");
         printf("\n 1. Show all decks");
         printf("\n 2. Search deck");
         printf("\n 3. Search deck with details");
