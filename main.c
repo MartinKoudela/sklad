@@ -95,7 +95,6 @@ int showDetails() {
     return 0;
 }
 
-// TODO: opravit
 int addDeck() {
     printf("\nEnter new decks information ");
     printf("\n--------------------------- ");
@@ -167,6 +166,7 @@ int updateForm(int index) {
     printf("\n 3. Update price");
     printf("\n 4. Update size");
     printf("\n 5. Update material");
+    printf("\n 6. Update quantity");
     printf("\n 0. Exit");
     printf("\n");
 
@@ -198,6 +198,10 @@ int updateForm(int index) {
             printf("Set a new material:");
             scanf(" %[^\n]", decks[index].material);
             break;
+        case 6:
+            printf("Set a new quantity:");
+            scanf("%d", &decks[index].quantity);
+            break;
         default:
             printf("Invalid action");
     }
@@ -218,14 +222,16 @@ int updateDeck() {
 
     for (int i = 0; i < deckCount; i++) {
         if (isPrice == 1 && fabs(decks[i].price - price) < 0.01) {
-            printf("Found: %s - %s - %.2f€ - %.2f - %s\n", decks[i].name, decks[i].brand, decks[i].price, decks[i].size,
-                   decks[i].material);
+            printf("Found: %s - %s - %.2f€ - %.2f - %s - %d\n", decks[i].name, decks[i].brand, decks[i].price,
+                   decks[i].size,
+                   decks[i].material, decks[i].quantity);
             found = 1;
             updateForm(i);
         } else if (isPrice != 1 && (strcasecmp(decks[i].brand, input) == 0 || strcasecmp(decks[i].name, input) == 0 ||
                                     strcasecmp(decks[i].material, input) == 0)) {
-            printf("Found: %s - %s - %.2f€ - %.2f - %s\n", decks[i].name, decks[i].brand, decks[i].price, decks[i].size,
-                   decks[i].material);
+            printf("Found: %s - %s - %.2f€ - %.2f - %s - %d decks\n", decks[i].name, decks[i].brand, decks[i].price,
+                   decks[i].size,
+                   decks[i].material, decks[i].quantity);
             found = 1;
             updateForm(i);
         }
