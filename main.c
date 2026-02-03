@@ -2,6 +2,12 @@
 #include <string.h>
 #include <tgmath.h>
 
+#define RED     "\033[1;31m"
+#define GREEN   "\033[1;32m"
+#define YELLOW  "\033[1;33m"
+#define BLUE    "\033[1;34m"
+#define CYAN    "\033[1;36m"
+#define RESET   "\033[0m"
 
 struct Decks {
     char name[100];
@@ -25,16 +31,19 @@ int deckCount = 6;
 
 
 int show() {
-    printf("\n%-4s %-14s %-12s %8s %6s %-12s %s\n",
+    printf("\n" CYAN "%-4s %-14s %-12s %8s %6s %-12s %s" RESET "\n",
            "#", "Name", "Brand", "Price", "Size", "Material", "Quantity");
-    printf("--------------------------------------------------------------------------- \n");
+    printf(CYAN "--------------------------------------------------------------------------- " RESET "\n");
     for (int i = 0; i < deckCount; i++) {
         if (decks[i].quantity > 0) {
             printf("%-4d %-14s %-12s %7.2f€ %5.2f %-12s", i + 1, decks[i].name, decks[i].brand, decks[i].price,
                    decks[i].size, decks[i].material);
-            (decks[i].quantity == 1) ? printf("%d deck\n", decks[i].quantity) : printf("%d decks\n", decks[i].quantity);
+            (decks[i].quantity == 1)
+                ? printf(GREEN "%d deck" RESET "\n", decks[i].quantity)
+                : printf(GREEN "%d decks" RESET "\n", decks[i].quantity);
         } else {
-            printf("%-4d %-14s %-12s %7.2f€ %5.2f %-12sNo decks in stock \n", i + 1, decks[i].name, decks[i].brand,
+            printf("%-4d %-14s %-12s %7.2f€ %5.2f %-12s" RED "No decks in stock" RESET " \n", i + 1, decks[i].name,
+                   decks[i].brand,
                    decks[i].price, decks[i].size, decks[i].material);
         }
     }
@@ -56,15 +65,15 @@ int searchDeck() {
 
     for (int i = 0; i < deckCount; i++) {
         if (isPrice == 1 && fabs(decks[i].price - price) < 0.01) {
-            printf("\nFound: %s - %s\n", decks[i].name, decks[i].brand);
+            printf("\n" GREEN "Found: %s - %s" RESET "\n", decks[i].name, decks[i].brand);
             found = 1;
         } else if (isPrice != 1 && (strcasecmp(decks[i].brand, input) == 0 || strcasecmp(decks[i].name, input) == 0 ||
                                     strcasecmp(decks[i].material, input) == 0)) {
-            printf("\nFound: %s - %s\n", decks[i].name, decks[i].brand);
+            printf("\n" GREEN "Found: %s - %s" RESET "\n", decks[i].name, decks[i].brand);
             found = 1;
         }
     }
-    (!found) ? printf("Not any decks found\n") : printf("\n");
+    (!found) ? printf(RED "Not any decks found" RESET "\n") : printf("\n");
     return 0;
 }
 
@@ -81,23 +90,25 @@ int showDetails() {
 
     for (int i = 0; i < deckCount; i++) {
         if (isPrice == 1 && fabs(decks[i].price - price) < 0.01) {
-            printf("Found: %s - %s - %.2f€ - %.2f - %s\n", decks[i].name, decks[i].brand, decks[i].price, decks[i].size,
+            printf(GREEN "Found: %s - %s - %.2f€ - %.2f - %s" RESET "\n", decks[i].name, decks[i].brand, decks[i].price,
+                   decks[i].size,
                    decks[i].material);
             found = 1;
         } else if (isPrice != 1 && (strcasecmp(decks[i].brand, input) == 0 || strcasecmp(decks[i].name, input) == 0 ||
                                     strcasecmp(decks[i].material, input) == 0)) {
-            printf("Found: %s - %s - %.2f€ - %.2f - %s\n", decks[i].name, decks[i].brand, decks[i].price, decks[i].size,
+            printf(GREEN "Found: %s - %s - %.2f€ - %.2f - %s" RESET "\n", decks[i].name, decks[i].brand, decks[i].price,
+                   decks[i].size,
                    decks[i].material);
             found = 1;
         }
     }
-    (!found) ? printf("Not any decks found\n") : printf("\n");
+    (!found) ? printf(RED "Not any decks found" RESET "\n") : printf("\n");
     return 0;
 }
 
 int addDeck() {
-    printf("\nEnter new decks information ");
-    printf("\n--------------------------- ");
+    printf("\n" BLUE "Enter new decks information " RESET);
+    printf("\n" BLUE "--------------------------- " RESET);
 
     printf("\nEnter decks name:");
     scanf(" %[^\n]", decks[deckCount].name);
@@ -118,7 +129,7 @@ int addDeck() {
     scanf("%d", &decks[deckCount].quantity);
 
     deckCount++;
-    printf("\nDeck added successfully\n");
+    printf("\n" GREEN "Deck added successfully" RESET "\n");
     return 0;
 }
 
@@ -143,7 +154,7 @@ int destroyDeck() {
             match = 1;
         }
         if (match) {
-            printf("\nDeleted: %s - %s\n", decks[i].name, decks[i].brand);
+            printf("\n" YELLOW "Deleted: %s - %s" RESET "\n", decks[i].name, decks[i].brand);
             for (int j = i; j < deckCount - 1; j++) {
                 decks[j] = decks[j + 1];
             }
@@ -152,15 +163,15 @@ int destroyDeck() {
             found = 1;
         }
     }
-    (!found) ? printf("Not any decks found\n") : printf("\n");
+    (!found) ? printf(RED "Not any decks found" RESET "\n") : printf("\n");
     return 0;
 }
 
 int updateForm(int index) {
     int choice;
-    printf("\n--------------------------------------");
-    printf("\n Update decks details");
-    printf("\n--------------------------------------");
+    printf("\n" BLUE "--------------------------------------" RESET);
+    printf("\n" BLUE " Update decks details" RESET);
+    printf("\n" BLUE "--------------------------------------" RESET);
     printf("\n 1. Update name");
     printf("\n 2. Update brand");
     printf("\n 3. Update price");
@@ -176,7 +187,7 @@ int updateForm(int index) {
 
     switch (choice) {
         case 0:
-            printf("Bye");
+            printf(YELLOW "Bye" RESET);
             return 0;
         case 1:
             printf("Set a new name:");
@@ -203,7 +214,7 @@ int updateForm(int index) {
             scanf("%d", &decks[index].quantity);
             break;
         default:
-            printf("Invalid action");
+            printf(RED "Invalid action" RESET);
     }
 }
 
@@ -222,21 +233,23 @@ int updateDeck() {
 
     for (int i = 0; i < deckCount; i++) {
         if (isPrice == 1 && fabs(decks[i].price - price) < 0.01) {
-            printf("Found: %s - %s - %.2f€ - %.2f - %s - %d\n", decks[i].name, decks[i].brand, decks[i].price,
+            printf(GREEN "Found: %s - %s - %.2f€ - %.2f - %s - %d" RESET "\n", decks[i].name, decks[i].brand,
+                   decks[i].price,
                    decks[i].size,
                    decks[i].material, decks[i].quantity);
             found = 1;
             updateForm(i);
         } else if (isPrice != 1 && (strcasecmp(decks[i].brand, input) == 0 || strcasecmp(decks[i].name, input) == 0 ||
                                     strcasecmp(decks[i].material, input) == 0)) {
-            printf("Found: %s - %s - %.2f€ - %.2f - %s - %d decks\n", decks[i].name, decks[i].brand, decks[i].price,
+            printf(GREEN "Found: %s - %s - %.2f€ - %.2f - %s - %d decks" RESET "\n", decks[i].name, decks[i].brand,
+                   decks[i].price,
                    decks[i].size,
                    decks[i].material, decks[i].quantity);
             found = 1;
             updateForm(i);
         }
     }
-    (!found) ? printf("Not any decks found\n") : printf("\n");
+    (!found) ? printf(RED "Not any decks found" RESET "\n") : printf("\n");
     return 0;
 }
 
@@ -244,9 +257,9 @@ int main(void) {
     int choice;
 
     while (1) {
-        printf("\n--------------------------------------");
-        printf("\n Welcome to DeckShops storage menu");
-        printf("\n--------------------------------------");
+        printf("\n" CYAN "--------------------------------------" RESET);
+        printf("\n" CYAN " Welcome to DeckShops storage menu" RESET);
+        printf("\n" CYAN "--------------------------------------" RESET);
         printf("\n 1. Show all decks");
         printf("\n 2. Search deck");
         printf("\n 3. Search deck with details");
@@ -261,7 +274,7 @@ int main(void) {
 
         switch (choice) {
             case 0:
-                printf("Bye");
+                printf(YELLOW "Bye" RESET);
                 return 0;
             case 1:
                 show();
@@ -282,7 +295,7 @@ int main(void) {
                 updateDeck();
                 break;
             default:
-                printf("Invalid action");
+                printf(RED "Invalid action" RESET);
         }
     }
     return 0;
