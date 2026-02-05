@@ -36,13 +36,13 @@ int show() {
     printf(CYAN "--------------------------------------------------------------------------- " RESET "\n");
     for (int i = 0; i < deckCount; i++) {
         if (decks[i].quantity > 0) {
-            printf("%-4d %-14s %-12s %7.2f€ %5.2f %-12s", i + 1, decks[i].name, decks[i].brand, decks[i].price,
+            printf("%-4d %-14s %-12s %7.2f€ %5.2f” %-12s", i + 1, decks[i].name, decks[i].brand, decks[i].price,
                    decks[i].size, decks[i].material);
             (decks[i].quantity == 1)
                 ? printf(GREEN "%d deck" RESET "\n", decks[i].quantity)
                 : printf(GREEN "%d decks" RESET "\n", decks[i].quantity);
         } else {
-            printf("%-4d %-14s %-12s %7.2f€ %5.2f %-12s" RED "No decks in stock" RESET " \n", i + 1, decks[i].name,
+            printf("%-4d %-14s %-12s %7.2f€ %5.2f” %-12s" RED "No decks in stock" RESET " \n", i + 1, decks[i].name,
                    decks[i].brand,
                    decks[i].price, decks[i].size, decks[i].material);
         }
@@ -90,13 +90,13 @@ int showDetails() {
 
     for (int i = 0; i < deckCount; i++) {
         if (isPrice == 1 && fabs(decks[i].price - price) < 0.01) {
-            printf(GREEN "Found: %s - %s - %.2f€ - %.2f - %s" RESET "\n", decks[i].name, decks[i].brand, decks[i].price,
+            printf(GREEN "Found: %s - %s - %.2f€ - %.2f” - %s" RESET "\n", decks[i].name, decks[i].brand, decks[i].price,
                    decks[i].size,
                    decks[i].material);
             found = 1;
         } else if (isPrice != 1 && (strcasecmp(decks[i].brand, input) == 0 || strcasecmp(decks[i].name, input) == 0 ||
                                     strcasecmp(decks[i].material, input) == 0)) {
-            printf(GREEN "Found: %s - %s - %.2f€ - %.2f - %s" RESET "\n", decks[i].name, decks[i].brand, decks[i].price,
+            printf(GREEN "Found: %s - %s - %.2f€ - %.2f” - %s" RESET "\n", decks[i].name, decks[i].brand, decks[i].price,
                    decks[i].size,
                    decks[i].material);
             found = 1;
@@ -119,7 +119,7 @@ int addDeck() {
     printf("\nEnter decks price:");
     scanf("%lf", &decks[deckCount].price);
 
-    printf("\nEnter decks size (8.5, 8.0 format):");
+    printf("\nEnter decks size (in inches):");
     scanf("%lf", &decks[deckCount].size);
 
     printf("\nEnter decks material:");
@@ -233,7 +233,7 @@ int updateDeck() {
 
     for (int i = 0; i < deckCount; i++) {
         if (isPrice == 1 && fabs(decks[i].price - price) < 0.01) {
-            printf(GREEN "Found: %s - %s - %.2f€ - %.2f - %s - %d" RESET "\n", decks[i].name, decks[i].brand,
+            printf(GREEN "Found: %s - %s - %.2f€ - %.2f” - %s - %d" RESET "\n", decks[i].name, decks[i].brand,
                    decks[i].price,
                    decks[i].size,
                    decks[i].material, decks[i].quantity);
@@ -241,7 +241,7 @@ int updateDeck() {
             updateForm(i);
         } else if (isPrice != 1 && (strcasecmp(decks[i].brand, input) == 0 || strcasecmp(decks[i].name, input) == 0 ||
                                     strcasecmp(decks[i].material, input) == 0)) {
-            printf(GREEN "Found: %s - %s - %.2f€ - %.2f - %s - %d decks" RESET "\n", decks[i].name, decks[i].brand,
+            printf(GREEN "Found: %s - %s - %.2f€ - %.2f” - %s - %d decks" RESET "\n", decks[i].name, decks[i].brand,
                    decks[i].price,
                    decks[i].size,
                    decks[i].material, decks[i].quantity);
@@ -298,5 +298,4 @@ int main(void) {
                 printf(RED "Invalid action" RESET);
         }
     }
-    return 0;
 }
