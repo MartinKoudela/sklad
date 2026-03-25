@@ -18,6 +18,8 @@ struct Decks {
     int quantity;
 };
 
+int deckCount = 6;
+
 struct Decks decks[100] = {
     {"Night Rider", "Jart", 106.50, 8.0, "Maple", 7},
     {"Venom", "Charge", 57.40, 8.25, "Bamboo", 10},
@@ -27,7 +29,6 @@ struct Decks decks[100] = {
     {"Inferno", "Baker", 90.65, 8.25, "Epoxy Maple", 5},
 };
 
-int deckCount = 6;
 
 
 int show() {
