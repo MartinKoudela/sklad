@@ -9,26 +9,18 @@
 #define CYAN    "\033[1;36m"
 #define RESET   "\033[0m"
 
-struct Decks {
+struct Product {
     char name[100];
-    char brand[50];
-    double price;
-    double size;
-    char material[50];
+    char ean[14];
+    double purchasePrice;
+    double sellingPrice;
     int quantity;
+    int vatLevel;
 };
 
-struct Decks decks[100] = {
-    {"Night Rider", "Jart", 106.50, 8.0, "Maple", 7},
-    {"Venom", "Charge", 57.40, 8.25, "Bamboo", 10},
-    {"Frostbite", "Polar Skate", 82.00, 8.5, "Maple", 0},
-    {"Dark Matter", "Chocolate", 115.80, 8.0, "Maple", 18},
-    {"Shadow", "Charge", 55.90, 8.0, "Bamboo", 0},
-    {"Inferno", "Baker", 90.65, 8.25, "Epoxy Maple", 5},
-};
-
-int deckCount = 6;
-
+struct Product *products = NULL;
+int productCount = 0;
+int productCapacity = 0;
 
 int show() {
     printf("\n" CYAN "%-4s %-14s %-12s %8s %6s %-12s %s" RESET "\n",
