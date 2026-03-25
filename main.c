@@ -1,6 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
-#include <tgmath.h>
 
 #define RED     "\033[1;31m"
 #define GREEN   "\033[1;32m"
@@ -21,6 +21,15 @@ struct Product {
 struct Product *products = NULL;
 int productCount = 0;
 int productCapacity = 0;
+
+void addProduct(struct Product p) {
+    if (productCount >= productCapacity) {
+        productCapacity = (productCapacity == 0) ? 4 : productCapacity * 2;
+        products = realloc(products, productCapacity * sizeof(struct
+Product));
+    }
+    products[productCount++] = p;
+}
 
 int show() {
     printf("\n" CYAN "%-4s %-14s %-12s %8s %6s %-12s %s" RESET "\n",
